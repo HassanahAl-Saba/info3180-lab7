@@ -57,6 +57,21 @@ const Home = {
     }
 };
 
+pp.component('upload-form', {
+    name: 'UploadForm',
+    template: `
+    <footer>
+        <div class="container">
+            <p>Copyright &copy; {{ year }} Flask Inc.</p>
+        </div>
+    </footer>
+    `,
+    data() {
+        return {
+            year: (new Date).getFullYear()
+        }
+    }
+});
 const NotFound = {
     name: 'NotFound',
     template: `

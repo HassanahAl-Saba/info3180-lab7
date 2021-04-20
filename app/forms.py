@@ -1,12 +1,9 @@
-from flask_uploads import UploadSet, IMAGES
 from flask_wtf import FlaskForm
-from flask_wtf.file import FileField, FileAllowed, FileRequired
+from wtforms import TextAreaField
+from flask_wtf.file import FileField, FileRequired, FileAllowed
+from wtforms.validators import DataRequired
 
-images = UploadSet('images', IMAGES)
 
 class UploadForm(FlaskForm):
-    photo = FileField('image', validators=[
-        FileRequired(),
-        FileAllowed(images, 'Images only!')
-    ])
-    description = StringField('Description', validators = [InputRequired()])
+    description =TextAreaField('Description',validators=[DataRequired()])   
+    photo = FileField('Photo',validators=[FileRequired(), FileAllowed(['jpg','png'])])
