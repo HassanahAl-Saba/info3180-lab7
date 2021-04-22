@@ -26,12 +26,10 @@ def upload():
 
         upload = {
                 
-                'message': 'File Upload Successful',
-                'filename': filename,
-                'description': description,
+            'message': 'File Upload Successful',
+            'filename': filename,
+            'description': description,
         }
-
-        flash('Photo successfully added')
         
         return jsonify(upload=upload)
     else:

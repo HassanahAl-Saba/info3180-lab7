@@ -29,26 +29,28 @@ const uploadForm ={
     <div>
 
         <h1> Upload Form </h1>
-
         <div class="alert alert-success" v-if="isSuccess">
-            <p v-for="success in successMessage">{{ success.message }}</p>
+            <p v-for="success in successMessage">{{ success }}</p>
         </div>
+    
         <div class="alert alert-danger" v-if="isError">
             <ul>
                 <li v-for="error in errors">{{ error }}</li>
             </ul>
         </div>
-
+        
         <form @submit.prevent="uploadPhoto" method="POST" enctype="multipart/form-data" id="uploadForm">
+            <div class="form-group">
+                <label> Description: </label><br>
+                <textarea name="description" class="form-control"> </textarea><br>
+                
+                <label> Photo: </label><br>
+                <input type="file" name="photo">
+            </div>
+        <button class="btn btn-primary mb-2" >Submit</button>
 
-        <div class="form-group">
-            <label> Description: </label><br>
-            <textarea name="description" class="form-control"> </textarea><br>
-            <label> Photo: </label><br>
-            <input type="file" name="photo">
-        </div>
-            <button class="btn btn-primary mb-2" >Submit</button>
-    </form>
+        
+        </form>
 
     </div>
     `,
@@ -56,7 +58,7 @@ const uploadForm ={
     data: function() {
         return{
             errors: [],
-            successmessage: [],
+            successMessage: [],
             isSuccess: false,
             isError: false
         };
@@ -81,8 +83,6 @@ const uploadForm ={
                     return response.json();
                 })
                 .then(function (jsonResponse) {
-                
-                    console.log('Success');
                     console.log(jsonResponse);
 
                     if (jsonResponse.errors) {
@@ -91,14 +91,15 @@ const uploadForm ={
                         self.errors = jsonResponse.errors;
                     }
                     else if (jsonResponse.upload) {
-                        self.isError = true;
-                        self.isSuccess = false;
+                        self.isError = false;
+                        self.isSuccess = true;
                         self.successMessage = jsonResponse.upload;
                     }
                 })
 
                 .catch(function (error) {
                     console.log(error);
+                    // self.isError=true;
                 });
 
             }
